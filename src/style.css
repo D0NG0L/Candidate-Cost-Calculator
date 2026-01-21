@@ -1,0 +1,96 @@
+/* Copied from the original style.css */
+.phase-card {
+    transition: all 0.3s ease;
+}
+.phase-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.phase-indicator {
+    transition: all 0.3s ease;
+}
+.phase-active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+.phase-completed {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in-up { animation: fadeInUp 500ms ease-out both; }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+.animate-fade-in { animation: fadeIn 300ms ease-out both; }
+.animate-scale-in { animation: fadeIn 200ms ease-out both, scaleIn 200ms ease-out both }
+@keyframes scaleIn { from { transform: scale(0.98) } to { transform: scale(1) } }
+.collapse { max-height: 0; overflow: hidden; transition: max-height 350ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease; opacity: 0; }
+.collapse.open { max-height: 1000px; opacity: 1; }
+/* Stage indicator hover animation */
+.phase-indicator.stage-animated {
+    position: relative;
+    z-index: 0;
+    transition: 1s box-shadow;
+    /* default inactive colors (neutral) */
+    --stage-before: #d1d5db; /* gray-300 */
+    --stage-after: #e5e7eb;  /* gray-200 */
+}
+.phase-indicator.stage-animated:hover {
+    box-shadow: 0 5px 35px 0px rgba(0,0,0,.1);
+}
+.phase-indicator.stage-animated:hover::before,
+.phase-indicator.stage-animated:hover::after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: -1;
+}
+.phase-indicator.stage-animated:hover::before {
+    top: 0;
+    left: 0;
+    background: var(--stage-before);
+    animation: 1s clockwise infinite;
+}
+.phase-indicator.stage-animated:hover::after {
+    top: 0;
+    right: 0;
+    background: var(--stage-after);
+    animation: 2s counterclockwise infinite;
+}
+/* Match legacy colors: active (indigo/purple), completed (teal/green) */
+.phase-indicator.stage-animated.phase-active { --stage-before: #667eea; --stage-after: #764ba2; }
+.phase-indicator.stage-animated.phase-completed { --stage-before: #11998e; --stage-after: #38ef7d; }
+@keyframes clockwise {
+    0% { top: -5px; left: 0; }
+    12% { top: -2px; left: 2px; }
+    25% { top: 0; left: 5px; }
+    37% { top: 2px; left: 2px; }
+    50% { top: 5px; left: 0; }
+    62% { top: 2px; left: -2px; }
+    75% { top: 0; left: -5px; }
+    87% { top: -2px; left: -2px; }
+    100% { top: -5px; left: 0; }
+}
+@keyframes counterclockwise {
+    0% { top: -5px; right: 0; }
+    12% { top: -2px; right: 2px; }
+    25% { top: 0; right: 5px; }
+    37% { top: 2px; right: 2px; }
+    50% { top: 5px; right: 0; }
+    62% { top: 2px; right: -2px; }
+    75% { top: 0; right: -5px; }
+    87% { top: -2px; right: -2px; }
+    100% { top: -5px; right: 0; }
+} 
+
